@@ -38,9 +38,9 @@ public class AlfrescoBotApplication implements CommandLineRunner {
   @Override
   public void run(String... args) {
     JDABuilder jdaBuilder = JDABuilder.createDefault(botProps.getToken());
-    jdaBuilder.setStatus(OnlineStatus.DO_NOT_DISTURB);
+    jdaBuilder.setStatus(OnlineStatus.ONLINE);
     jdaBuilder.setAutoReconnect(true);
-    jdaBuilder.setActivity(Activity.playing("/help"));
+    jdaBuilder.setActivity(Activity.watching("for commands"));
     jdaBuilder.addEventListeners(commandsListener);
 
     try {
