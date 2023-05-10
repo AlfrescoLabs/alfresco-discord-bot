@@ -49,7 +49,7 @@ jobs:
         id: run-container
         env:
           ALFRESCO_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-        run: echo "CID=$(docker run -d -e ALFRESCO_BOT_TOKEEEEN=$ALFRESCO_BOT_TOKEN ${{ steps.build-image.outputs.imageid }})" >> "$GITHUB_OUTPUT"
+        run: echo "CID=$(docker run -d -e ALFRESCO_BOT_TOKEN=$ALFRESCO_BOT_TOKEN ${{ steps.build-image.outputs.imageid }})" >> "$GITHUB_OUTPUT"
 
       - name: Wait just a little for the startup to complete or fail
         if: steps.run-container.outputs.CID != ''
