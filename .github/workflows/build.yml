@@ -39,7 +39,7 @@ jobs:
         uses: docker/build-push-action@v4.0.0
         id: build-image
         with:
-          push: ${{ github.actor != 'dependabot[bot]' && github.ref_name == 'master' }}
+          push: ${{ github.actor != 'dependabot[bot]' && github.ref_name == 'main' }}
           tags: quay.io/alfresco/alfresco-discord-bot:latest
           load: true
           cache-from: type=gha
