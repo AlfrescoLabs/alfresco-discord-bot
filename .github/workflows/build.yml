@@ -14,8 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v1.37.0
-      - name: "Build"
-        run: mvn -B -V install -DskipTests
       - name: "Build and Test"
         env:
           ALFRESCO_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
