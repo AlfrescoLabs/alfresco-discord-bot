@@ -1,0 +1,20 @@
+name: Alfresco Discord Bot
+
+on:
+  pull_request:
+    branches:
+      - "main"
+  push:
+    branches:
+      - "main"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v1.37.0
+      - name: "Build and Test"
+        env:
+          ALFRESCO_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: mvn -B -V install
