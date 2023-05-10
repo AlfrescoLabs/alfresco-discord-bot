@@ -1,3 +1,4 @@
+# Adapted from https://spring.io/guides/topicals/spring-boot-docker/
 FROM eclipse-temurin:17-jdk-alpine as build
 WORKDIR /workspace/app
 
@@ -16,4 +17,5 @@ COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 
-ENTRYPOINT ["java","-cp","app:app/lib/*","alfresco-bot.Application"]
+WORKDIR /
+ENTRYPOINT ["java","-cp","app:app/lib/*","org.alfresco.alfrescobot.AlfrescoBotApplication"]
