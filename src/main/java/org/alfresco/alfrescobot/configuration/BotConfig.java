@@ -43,6 +43,11 @@ public class BotConfig {
   }
 
   @Bean
+  public CommandData licenseCommand() {
+    return new CommandData("license", "When the license will expire");
+  }
+
+  @Bean
   public CommandData downloadCommand() {
     return new CommandData("download", "Download a file").addOption(OptionType.STRING, "node_id",
         "The nodeId of the file to download", true);
