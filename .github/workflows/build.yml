@@ -17,7 +17,7 @@ jobs:
       - name: "Build and Test"
         env:
           ALFRESCO_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-        run: mvn -B -V install
+        run: ./mvnw -B -V install
 
   docker:
     runs-on: ubuntu-latest
