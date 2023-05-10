@@ -6,11 +6,18 @@ A Discord Bot that provides seamless integration with ACS.
 2. Populate the `alfresco.bot.token` within [application.properties](src/main/resources/application.properties)
 3. **Run** with `mvn spring-boot:run`.
 
+> ⚠ **WARNING:**
+>
+> Remember to either:
+> - start a local ACS deployment _(for example
+    via [docker-compose](https://github.com/Alfresco/acs-deployment/blob/master/docker-compose/docker-compose.yml))_
+> - configure the bot to target your desired environment by tweaking
+    the [application.properties](src/main/resources/application.properties) file
+
 ### Reference Documentation
 
 For further reference, please consider the following sections:
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.0.6/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.0.6/maven-plugin/reference/html/#build-image)
-
+* [Discord Developer Portal](https://discord.com/developers/docs/intro)
+* [Java Discord API](https://github.com/DV8FromTheWorld/JDA)
+* [Alfresco Java SDK](https://github.com/Alfresco/alfresco-java-sdk)
