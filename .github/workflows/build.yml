@@ -24,8 +24,10 @@ jobs:
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
+
       - name: Build Docker Image
         uses: docker/build-push-action@v4.0.0
         id: build-image
@@ -36,17 +38,21 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - run: docker images
-
-      - name: "Run container"
+      - name: Test container run
         id: run-container
         env:
           ALFRESCO_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
         run: echo "CID=$(docker run --rm -d -e ALFRESCO_BOT_TOKEN=$ALFRESCO_BOT_TOKEN ${{ steps.build-image.outputs.imageid }})" >> "$GITHUB_OUTPUT"
-      - name: Wait a little for the startup to complete
+
+      - name: Wait just a little for the startup to complete or fail
+        if: steps.run-container.outputs.CID != ''
         run: sleep 10
+
       - name: Inspect running state
-        run: docker inspect ${{ steps.run-container.outputs.CID }} | jq -e '.[0].State.Running'
+        run: |
+          set -o pipefail
+          docker inspect ${{ steps.run-container.outputs.CID }} | jq -e '.[0].State.Running'
+
       - name: Print logs on failure
         if: failure()
         run: docker logs ${{ steps.run-container.outputs.CID }}
