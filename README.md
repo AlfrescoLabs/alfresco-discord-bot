@@ -3,7 +3,7 @@
 A Discord Bot that provides seamless integration with ACS.
 
 1. Create your [Discord Bot](https://discordnet.dev/guides/getting_started/first-bot.html)
-2. Populate the `alfresco.bot.token` within [application.properties](src/main/resources/application.properties)
+2. Set the `ALFRESCO_BOT_TOKEN` environment variable to be equal to your bot token
 3. **Run** with `mvn spring-boot:run`.
 
 > ⚠ **WARNING:**
