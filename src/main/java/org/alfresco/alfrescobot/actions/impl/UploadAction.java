@@ -50,7 +50,8 @@ public class UploadAction implements BotAction {
             .getBody();
         if (updatedNodeEntry != null) {
           Node updatedNode = updatedNodeEntry.getEntry();
-          event.reply("Content uploaded successfully with nodeId: " + monospace(updatedNode.getId())).queue();
+          event.deferReply(true)
+              .setContent("Content uploaded successfully with nodeId: " + monospace(updatedNode.getId())).queue();
         } else {
           event.deferReply(true).setContent("Failed to upload the desired document.").queue();
         }

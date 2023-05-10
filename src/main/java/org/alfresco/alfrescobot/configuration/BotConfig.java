@@ -72,4 +72,11 @@ public class BotConfig {
         "The id of the node to delete", true);
   }
 
+  @Bean
+  public CommandData configureNotificationsCommand() {
+    return new CommandData("configure_notifications", "Enable ACS notifications on a specific channel")
+        .addOption(OptionType.CHANNEL, "channel",
+            "The channel to send notifications to", true);
+  }
+
 }
