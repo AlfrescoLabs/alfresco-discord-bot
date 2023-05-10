@@ -9,6 +9,8 @@ import org.alfresco.discovery.model.DiscoveryEntry;
 import org.alfresco.discovery.model.LicenseInfo;
 import org.springframework.stereotype.Component;
 
+import static net.dv8tion.jda.api.utils.MarkdownUtil.monospace;
+
 @Component
 public class LicenseAction implements BotAction {
 
@@ -24,7 +26,7 @@ public class LicenseAction implements BotAction {
     LicenseInfo license = entry.getEntry().getRepository().getLicense();
     Integer remainingDays = license.getRemainingDays();
     event.deferReply(true)
-            .setContent(String.format("You are good for %s more days", remainingDays))
+            .setContent(String.format("You are good for %s more days", monospace(String.valueOf(remainingDays))))
             .queue();
   }
 
