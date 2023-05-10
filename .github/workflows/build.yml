@@ -41,7 +41,7 @@ jobs:
         with:
           push: ${{ github.actor != 'dependabot[bot]' && github.ref_name == 'main' }}
           tags: quay.io/alfresco/alfresco-discord-bot:latest
-          load: true
+          load: ${{ github.ref_name != 'main' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
