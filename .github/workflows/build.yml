@@ -31,3 +31,15 @@ jobs:
         with:
           push: false
           tags: alfresco/alfresco-discord-bot:latest
+      - name: "Run container"
+        id: run-container
+        env:
+          ALFRESCO_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: echo "CID=$(docker run --rm -d -e ALFRESCO_BOT_TOKEN=$ALFRESCO_BOT_TOKEN alfresco/alfresco-discord-bot:latest)" >> "$GITHUB_OUTPUT"
+      - name: Wait a little for the startup to complete
+        run: sleep 10
+      - name: Inspect running state
+        run: docker inspect ${{ steps.run-container.outputs.CID }} | jq -e '.[0].State.Running'
+      - name: Print logs on failure
+        if: failure()
+        run: docker logs ${{ steps.run-container.outputs.CID }}
