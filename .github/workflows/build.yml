@@ -31,6 +31,8 @@ jobs:
         with:
           push: false
           tags: alfresco/alfresco-discord-bot:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
       - name: "Run container"
         id: run-container
         env:
