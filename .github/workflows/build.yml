@@ -51,7 +51,7 @@ jobs:
       - name: Compute image id
         id: compute-image-id
         run: |
-          if [ "${{ github.ref_name }}" = "12/merge" ]; then
+          if [ "${{ github.ref_name }}" = "main" ]; then
             echo "imageid=$DOCKER_IMAGE_REF" >> "$GITHUB_OUTPUT"
           else
             echo "imageid=${{ steps.build-image.outputs.imageid }}" >> "$GITHUB_OUTPUT"
