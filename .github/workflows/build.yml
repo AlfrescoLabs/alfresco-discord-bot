@@ -44,6 +44,8 @@ jobs:
         with:
           push: ${{ github.actor != 'dependabot[bot]' && github.ref_name == 'main' }}
           tags: ${{ env.DOCKER_IMAGE_REF }}:latest
+          # workaround action limitation that cannot load image on local docker
+          # if push was enabled
           load: ${{ github.ref_name != 'main' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
