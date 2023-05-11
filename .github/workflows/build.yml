@@ -8,6 +8,9 @@ on:
     branches:
       - "main"
 
+env:
+  DOCKER_IMAGE_REF: quay.io/alfresco/alfresco-discord-bot
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -40,16 +43,25 @@ jobs:
         id: build-image
         with:
           push: ${{ github.actor != 'dependabot[bot]' && github.ref_name == 'main' }}
-          tags: quay.io/alfresco/alfresco-discord-bot:latest
+          tags: ${{ env.DOCKER_IMAGE_REF }}:latest
           load: ${{ github.ref_name != 'main' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Compute image id
+        id: compute-image-id
+        run: |
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            echo "imageid=$DOCKER_IMAGE_REF" >> "$GITHUB_OUTPUT"
+          else
+            echo "imageid=${{ steps.build-image.outputs.imageid }}" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Test container run
         id: run-container
         env:
           ALFRESCO_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-        run: echo "CID=$(docker run -d -e ALFRESCO_BOT_TOKEN=$ALFRESCO_BOT_TOKEN ${{ steps.build-image.outputs.imageid }})" >> "$GITHUB_OUTPUT"
+        run: echo "CID=$(docker run -d -e ALFRESCO_BOT_TOKEN=$ALFRESCO_BOT_TOKEN ${{ steps.compute-image-id.outputs.imageid }})" >> "$GITHUB_OUTPUT"
 
       - name: Wait just a little for the startup to complete or fail
         if: steps.run-container.outputs.CID != ''
